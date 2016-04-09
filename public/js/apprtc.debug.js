@@ -1953,6 +1953,7 @@ function sendUrlRequest(method, url, async, body) {
   });
 }
 function requestTurnServers(turnRequestUrl, turnTransports) {
+  console.log("requestTurnServers:",turnRequestUrl," , ",turnTransports);
   return new Promise(function(resolve, reject) {
     var method = isChromeApp() ? "POST" : "GET";
     sendAsyncUrlRequest(method, turnRequestUrl).then(function(response) {
