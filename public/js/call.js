@@ -118,7 +118,10 @@ Call.prototype.hangup = function(async) {
   }
 
   if (this.localStream_) {
+    try{
     this.localStream_.stop();
+    }
+    catch(err){};
     this.localStream_ = null;
   }
 
