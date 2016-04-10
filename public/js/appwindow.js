@@ -39,9 +39,27 @@ var loadingParams = {
         newParams.mediaConstraints = parseJSON(serverParams.media_constraints);
         newParams.offerConstraints = parseJSON(serverParams.offer_constraints);
         newParams.peerConnectionConfig = parseJSON(serverParams.pc_config);
+
+        // Replace with our STUN/TURN server
+        newParams.peerConnectionConfig.iceServers = [
+          {
+            'url': 'stun:stun.l.google.com:19302'
+          },
+          {
+            'url': 'http://numb.viagenie.ca:3478?transport=udp',
+            'credential': 'MbMA9h9kFMkkfK',
+            'username': 'nick@differential.com'
+          },
+          {
+            'url': 'turn:numb.viagenie.ca:3478',
+            'credential': 'MbMA9h9kFMkkfK',
+            'username': 'nick@differential.com'
+          }
+        ];
         newParams.peerConnectionConstraints =
             parseJSON(serverParams.pc_constraints);
-        newParams.turnRequestUrl = serverParams.turn_url;
+//        newParams.turnRequestUrl = serverParams.turn_url; // remove this to not request turn servers
+        newParams.turnRequestUrl = '';serverParams.turn_url; // remove this to not request turn servers
         newParams.turnTransports = serverParams.turn_transports;
         newParams.wssUrl = serverParams.wss_url;
         newParams.wssPostUrl = serverParams.wss_post_url;

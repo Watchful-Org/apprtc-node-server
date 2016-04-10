@@ -9,7 +9,8 @@ var rooms = new Rooms();
 
 var constants = {
   LOOPBACK_CLIENT_ID: 'LOOPBACK_CLIENT_ID',
-  TURN_BASE_URL: 'https://computeengineondemand.appspot.com',
+//  TURN_BASE_URL: 'https://computeengineondemand.appspot.com',
+  TURN_BASE_URL: '',
   TURN_URL_TEMPLATE: '%s/turn?username=%s&key=%s',
   CEOD_KEY: '4080218913',
   WSS_HOST_ACTIVE_HOST_KEY: 'wss_host_active_host', //memcache key for the active collider host.

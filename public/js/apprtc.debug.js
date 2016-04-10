@@ -794,7 +794,7 @@ Call.prototype.sendSignalingMessage_ = function(message) {
     var xhr = new XMLHttpRequest;
     xhr.open("POST", path, true);
     xhr.send(msgString);
-    console.log("C->GAE: " + msgString);
+//    console.log("C->GAE: " + msgString);
   } else {
     this.channel_.send(msgString);
   }
@@ -1041,8 +1041,27 @@ InfoBox.formatPacketRate_ = function(value) {
   return value.toPrecision(3) + " " + "pps";
 };
 var PeerConnectionClient = function(params, startTime) {
+  console.log('');
+  console.log('*** PARAMS ***');
+  console.log(params);
   this.params_ = params;
   this.startTime_ = startTime;
+  // Replace with our STUN/TURN server
+  params.peerConnectionConfig.iceServers = [
+    {
+      'url': 'stun:stun.l.google.com:19302'
+    },
+    {
+      'url': 'turn:numb.viagenie.ca:3478?transport=udp',
+      'credential': 'MbMA9h9kFMkkfK',
+      'username': 'nick@differential.com'
+    },
+    {
+      'url': 'turn:numb.viagenie.ca:3478?transport=udp',
+      'credential': 'MbMA9h9kFMkkfK',
+      'username': 'nick@differential.com'
+    }
+  ];
   console.log("Creating RTCPeerConnnection with:\n" + "  config: '" + JSON.stringify(params.peerConnectionConfig) + "';\n" + "  constraints: '" + JSON.stringify(params.peerConnectionConstraints) + "'.");
   this.pc_ = new RTCPeerConnection(params.peerConnectionConfig, params.peerConnectionConstraints);
   this.pc_.onicecandidate = this.onIceCandidate_.bind(this);
@@ -1953,6 +1972,8 @@ function sendUrlRequest(method, url, async, body) {
   });
 }
 function requestTurnServers(turnRequestUrl, turnTransports) {
+  console.log('');
+  console.log('*** TURN SERVERS ***');
   console.log("requestTurnServers:",turnRequestUrl," , ",turnTransports);
   return new Promise(function(resolve, reject) {
     var method = isChromeApp() ? "POST" : "GET";
