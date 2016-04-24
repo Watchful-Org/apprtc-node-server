@@ -21,7 +21,7 @@ var loadingParams = {
   roomServer: roomServer,
   connect: false,
   paramsFunction: function() {
-    return new Promise(function(resolve, reject) {
+    var paramsFunctionReturn = new Promise(function(resolve, reject) {
       trace('Initializing; retrieving params from: ' + roomServer + '/params');
       sendAsyncUrlRequest('GET', roomServer + '/params').then(function(result) {
         var serverParams = parseJSON(result);
@@ -77,6 +77,10 @@ var loadingParams = {
         reject(error);
       });
     });
+    console.log("");
+    console.log("PPP Params Function Return: PPP");
+    console.log(paramsFunctionReturn);
+    return paramsFunctionReturn;
   }
 };
 
